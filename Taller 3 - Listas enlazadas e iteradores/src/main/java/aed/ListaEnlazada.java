@@ -106,37 +106,70 @@ public class ListaEnlazada<T> implements Secuencia<T> {
     }
 
     public ListaEnlazada(ListaEnlazada<T> lista) {
-        throw new UnsupportedOperationException("No implementada aun");
+        for(int j = 0; j < lista.length; j++){
+            agregarAtras(lista.obtener(j));
+        }
     }
     
     @Override
     public String toString() {
-        throw new UnsupportedOperationException("No implementada aun");
+        String mensaje = "[";
+        for(int i = 0; i < length; i++){
+            if (i != length - 1){
+                mensaje += obtener(i).toString() + ", ";
+            } else {
+                mensaje += obtener(i).toString() + "]";
+            }
+        }
+        return mensaje;
     }
 
     private class ListaIterador implements Iterador<T> {
-    	// Completar atributos privados
+    	private Nodo iterador;
+        ListaIterador(){
+            iterador = first;
+        }
 
         public boolean haySiguiente() {
-	        throw new UnsupportedOperationException("No implementada aun");
+	        if (length == 0){
+                return false;
+            }
+            if (iterador == last){
+                return true;
+            }
+            return iterador != null && iterador.next != null;
         }
         
         public boolean hayAnterior() {
-	        throw new UnsupportedOperationException("No implementada aun");
+	        if (length == 0){
+                return false;
+            }
+            if (iterador == null){
+                return true;
+            }
+            return iterador != null && iterador.previous != null;
         }
 
         public T siguiente() {
-	        throw new UnsupportedOperationException("No implementada aun");
+	        T valor = iterador.valor;
+            iterador = iterador.next;
+            return valor;
         }
         
 
         public T anterior() {
-	        throw new UnsupportedOperationException("No implementada aun");
+	        if (iterador == null){
+                iterador = last;
+                return iterador.valor;
+            } else {
+                iterador = iterador.previous;
+                return iterador.valor;
+            }
         }
     }
 
     public Iterador<T> iterador() {
-	    throw new UnsupportedOperationException("No implementada aun");
+	    return new ListaIterador();
     }
 
 }

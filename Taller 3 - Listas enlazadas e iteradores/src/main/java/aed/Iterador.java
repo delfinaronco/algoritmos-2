@@ -6,6 +6,7 @@ interface Iterador<T> {
      * Devuelve true si hay un elemento siguiente en la colección.
      * 
      */
+    
     public boolean haySiguiente();
     
     /**
